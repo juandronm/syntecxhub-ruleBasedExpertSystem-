@@ -1,1 +1,0 @@
-# syntecxhub-ruleBasedExpertSystem-
