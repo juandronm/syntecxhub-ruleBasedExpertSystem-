@@ -1,136 +1,109 @@
-# Rule-Based Expert System
+# 🧠 Rule-Based Expert System: Career Discovery
 
-This project is a small rule-based expert system built with Python and Streamlit. It accepts user interests as input, stores them as facts, applies if-then rules using forward chaining, and recommends career paths based on the inferred conclusions.
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-Framework-FF4B4B.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-## Project Goal
+> A lightweight, local, and purely symbolic rule-based expert system that recommends career paths using forward chaining inference—no LLMs required!
 
-The system was designed to satisfy these requirements:
+---
 
-- build a small rule engine with a facts base
-- accept user facts and infer conclusions using forward chaining
-- support chaining of rules through multiple inference steps
-- show the reasoning path so the user can understand how conclusions were reached
+## 📖 Overview
 
-## How It Works
+This project is a small, interactive expert system built with **Python** and **Streamlit**. It takes users' interests as input, converts them into internal facts, and applies a set of *if-then* rules using **forward chaining**. The system then infers logical conclusions to recommend suitable career paths while showing the step-by-step reasoning path.
 
-The project uses a local symbolic inference engine instead of relying on an LLM to make the decisions.
+## ✨ Key Features
 
-### Facts Base
+- **🧠 Local Symbolic Inference Engine:** Relies on deterministic logic and facts rather than probabilistic LLMs.
+- **🔍 Natural Language Fact Extraction:** Analyzes user input for keywords (e.g., `math`, `programming`, `biology`, `design`) and translates them into internal facts (e.g., `likes_math`).
+- **⚙️ Forward Chaining:** Applies multiple iterations of `if-then` rules until no new facts can be inferred, allowing for complex, multi-step reasoning.
+- **🔎 Explainable AI (XAI):** Generates an **Inference Log** that details exactly *which* rules fired and *why*, providing full transparency into how conclusions were reached.
 
-User messages are analyzed for keywords such as:
+---
 
-- `math`
-- `programming`
-- `biology`
-- `law`
-- `design`
-- `physics`
+## 🛠️ How It Works
 
-These keywords are converted into internal facts such as:
-
-- `likes_math`
-- `likes_programming`
-- `likes_biology`
-
-### Rule Engine
-
-The system contains a set of if-then rules. Example:
-
+### The Knowledge Base
+The system consists of two main components:
+1. **Facts Base**: Translates user keywords into standard symbolic facts.
+2. **Rule Engine**: A predefined set of logical rules.
+   
+*Example Rules:*
 ```text
 IF likes_math THEN analytical_profile
 IF analytical_profile THEN career_applied_mathematics
 IF analytical_profile AND computing_profile THEN career_data_science
 ```
 
-### Forward Chaining
+### The Inference Engine
+Starting with facts extracted from the user's input, the system:
+1. Scans the rule base to check which rules evaluate to true.
+2. Fires those rules to generate **new facts** (e.g., inferred profiles or careers).
+3. Repeats the process iteratively until the conclusion state is stable.
 
-The system starts with the initial facts extracted from the user input.
+---
 
-It then:
-
-1. checks which rules can fire
-2. adds newly inferred facts
-3. repeats the process until no new facts are produced
-
-This allows multi-step inference.
-
-### Inference Log
-
-Each fired rule is recorded so the user can see the reasoning path, for example:
-
-```text
-R1: because ['likes_math'] were true, inferred ['analytical_profile'].
-R15: because ['analytical_profile'] were true, inferred ['career_applied_mathematics'].
-```
-
-## Project Structure
+## 📂 Project Structure
 
 ```text
 rule-basedExpertSystem/
-├── README.md
-├── .env
+├── README.md               # You are here!
+├── .env                    # Environment variables
 └── src/
-    ├── main.py
-    └── model.py
+    ├── main.py             # Streamlit UI & Chatbot Frontend
+    └── model.py            # Core logic (Rules, Extraction, Inference)
 ```
 
-### Files
+---
 
-- [src/main.py](c:\Users\juanr\OneDrive\Escritorio\SYNTECXHUB\rule-basedExpertSystem\src\main.py)
-  Streamlit user interface for the chatbot-style expert system.
+## 🚀 Getting Started
 
-- [src/model.py](c:\Users\juanr\OneDrive\Escritorio\SYNTECXHUB\rule-basedExpertSystem\src\model.py)
-  Core expert-system logic, including:
-  - keyword-to-fact extraction
-  - rules base
-  - forward chaining
-  - explanation output
+Follow these steps to set up and run the project locally.
 
-## How To Run
-
-### 1. Create and activate a virtual environment
-
+### 1. Create a Virtual Environment
+We recommend using `uv` (or standard Python `venv`).
 ```bash
 uv venv
+# On Windows:
 .venv\Scripts\activate
+# On macOS/Linux:
+source .venv/bin/activate
 ```
 
-### 2. Install dependencies
-
+### 2. Install Dependencies
 ```bash
 uv pip install streamlit
 ```
 
-### 3. Run the app
-
+### 3. Run the Application
 ```bash
 streamlit run src/main.py
 ```
 
-## Example Inputs
+---
 
-- `I like math`
-- `I like programming and electronics`
-- `I like biology and helping people`
-- `I like law and writing`
+## 💡 Example Usage
 
-## Example Output
+**User Input:**
+> *"I like programming and electronics"*
 
-The system returns:
+**System Output:**
+- **Extracted Facts:** `likes_programming`, `likes_electronics`
+- **Recommended Careers:** `Software Engineer`, `Embedded Systems Engineer`
+- **Inference Log:** 
+  ```text
+  R1: because ['likes_programming'] were true, inferred ['computing_profile'].
+  ...
+  ```
 
-- the extracted facts base
-- the recommended careers
-- the inference log showing how the rules fired
+---
 
-## Notes
+## 🔮 Future Improvements
 
-- This project is now a real rule-based expert system, not just an LLM prompt wrapper.
-- The quality of the result depends on the keywords detected from the user message.
-- The system can be extended by adding more keywords, rules, and career conclusions in `src/model.py`.
+- [ ] **Negative Facts Support:** Allow users to express dislikes (e.g., *"I do not like biology"*).
+- [ ] **Recommendation Ranking:** Sort inferred careers by specificity or confidence level.
+- [ ] **Enhanced UI:** Add internal scrolling and cleaner modular sections to the chat panel.
+- [ ] **Expanded Knowledge Base:** Add more diverse domains, keywords, and deeper career paths.
 
-## Future Improvements
-
-- add support for negative facts such as `I do not like biology`
-- rank recommendations by specificity
-- add internal scrolling and cleaner UI sections in the chat panel
-- expand the rule base with more domains and careers
+---
+*Built with ❤️ using Python and Streamlit.*
